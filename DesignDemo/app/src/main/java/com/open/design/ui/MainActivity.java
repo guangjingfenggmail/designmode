@@ -30,7 +30,10 @@ public class MainActivity extends AppCompatActivity {
             list.clear();
             ClassBean allBean;
             for (ActivityInfo info : activities) {
-                if (!MainActivity.class.getName().equals(info.name)&&!PrintActivity.class.getName().equals(info.name) && info.name.contains(getPackageName())) {
+                if (!MainActivity.class.getName().equals(info.name)&&!PrintActivity.class.getName().equals(info.name)
+                        &&!WebViewActivity.class.getName().equals(info.name)
+                        &&!PrintActivity.class.getName().equals(info.name)
+                        && info.name.contains(getPackageName())) {
                     allBean = new ClassBean(info.name, getResources().getString(info.descriptionRes));
                     list.add(allBean);
                 }

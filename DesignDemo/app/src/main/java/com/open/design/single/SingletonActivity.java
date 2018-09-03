@@ -1,11 +1,18 @@
 package com.open.design.single;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.open.design.R;
 import com.open.design.ui.PrintActivity;
+import com.open.design.ui.WebViewActivity;
 
 /**
  * ****************************************************************************************************************************************************************************
@@ -17,14 +24,32 @@ import com.open.design.ui.PrintActivity;
  * @modifyAuthor:
  * @description: *****************************************************************************************************************************************************************************
  **/
-public class SingletonActivity extends FragmentActivity {
+public class SingletonActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_singleton);
+
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_single, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.web_menu:
+                WebViewActivity.startWebViewActivity(this,"https://blog.csdn.net/JoeLeeDreamer/article/details/71717379");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     public void onClick1(View view){
         toPrint("饿汉式 是最简单的实现方式，这种实现方式适合那些在初始化时就要用到单例的情况，这种方式简单粗暴，如果单例对象初始化非常快，而且占用内存非常小的时候这种方式是比较合适的，可以直接在应用启动时加载并初始化。 但是，如果单例初始化的操作耗时比较长而应用对于启动速度又有要求，或者单例的占用内存比较大，再或者单例只是在某个特定场景的情况下才会被使用，而一般情况下是不会使用时，使用饿汉式的单例模式就是不合适的，这时候就需要用到懒汉式的方式去按需延迟加载单例。"
@@ -58,7 +83,8 @@ public class SingletonActivity extends FragmentActivity {
     }
 
     public void onClick5(View view){
-        toPrint("",Singleton4.getInstance().toString());
+        Singleton5 singleton = Singleton5.instance;
+        toPrint("",singleton.toString());
     }
 
     public void toPrint(String title,String content){

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.ClipboardManager;
 import android.view.View;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ import java.io.IOException;
  * @modifyAuthor:
  * @description: *****************************************************************************************************************************************************************************
  **/
-public class PrintActivity extends Activity {
+public class PrintActivity extends AppCompatActivity {
     TextView title;
     TextView content;
 
