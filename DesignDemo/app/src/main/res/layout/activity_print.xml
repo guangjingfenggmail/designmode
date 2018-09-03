@@ -19,6 +19,8 @@
             android:id="@+id/txtTitle"
             android:lineSpacingMultiplier="1.2"
             android:onClick="onClickTitle"
+            android:textSize="16dp"
+            android:textColor="@android:color/background_dark"
             />
 
         <TextView
@@ -26,6 +28,8 @@
             android:layout_height="match_parent"
             android:id="@+id/txtContent"
             android:lineSpacingMultiplier="1.2"
+            android:textSize="16dp"
+            android:textColor="@android:color/background_dark"
             android:onClick="onClickContent"
             />
     </LinearLayout>

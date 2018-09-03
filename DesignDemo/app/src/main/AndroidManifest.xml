@@ -23,6 +23,9 @@
         <activity android:name=".single.SingletonActivity"
             android:description="@string/app_single"
             />
+        <activity android:name=".builder.BuilderActivity"
+            android:description="@string/app_builder"
+            />
         <activity android:name=".ui.PrintActivity"
             android:description="@string/app_name"
             />
