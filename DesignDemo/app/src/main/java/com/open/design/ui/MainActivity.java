@@ -1,70 +1,58 @@
 package com.open.design.ui;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
-import com.open.design.PersonBuilder;
 import com.open.design.R;
-import com.open.design.clone.Prototype;
-import com.open.design.observer.Observable;
-import com.open.design.observer.Observer;
-import com.open.design.observer.Weather;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    Observable<Weather> observable=new Observable<Weather>();
+    ClassListAdapter mClassListAdapter;
+    List<ClassBean> list = new ArrayList<>();
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        PersonBuilder.Builder builder = new PersonBuilder.Builder();
-        builder.age(1)
-                .height(1.0)
-                .name("11")
-                .weight(22);
+        listView = findViewById(R.id.listview);
 
-        Observer<Weather> observer1=new Observer<Weather>() {
-            @Override
-            public void onUpdate(Observable<Weather> observable, Weather data) {
-                System.out.println("观察者1："+data.toString());
+        try {
+            // 这样就能获取ActivityInfo了，之后可以获得Activity的name
+            ActivityInfo[] activities = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_ACTIVITIES).activities;
+            list.clear();
+            ClassBean allBean;
+            for (ActivityInfo info : activities) {
+                if (!MainActivity.class.getName().equals(info.name)&&!PrintActivity.class.getName().equals(info.name) && info.name.contains(getPackageName())) {
+                    allBean = new ClassBean(info.name, getResources().getString(info.descriptionRes));
+                    list.add(allBean);
+                }
             }
-        };
-        Observer<Weather> observer2=new Observer<Weather>() {
+        } catch (PackageManager.NameNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        mClassListAdapter = new ClassListAdapter(this,list);
+        listView.setAdapter(mClassListAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onUpdate(Observable<Weather> observable, Weather data) {
-                System.out.println("观察者2："+data.toString());
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (id!=-1 && list!=null && list.size()>0){
+                    Intent intent = new Intent();
+                    intent.setClassName(getPackageName(), list.get((int)id).className);
+                    startActivity(intent);
+                }
             }
-        };
-
-        observable.register(observer1);
-        observable.register(observer2);
-
-
-        Weather weather = new Weather.Builder().description("晴转多云").create();
-
-        observable.notifyObservers(weather);
-
-        Weather weather1= new Weather.Builder().description("多云转阴").create();
-        observable.notifyObservers(weather1);
-        observable.unregiter(observer1);
-
-        Weather weather2= new Weather.Builder().description("台风").create();
-        observable.notifyObservers(weather2);
-
-        Prototype mPrototype = new Prototype();
-        mPrototype.setType("1");
-        mPrototype.setTypeName("12");
-
-        Prototype newPrototype = (Prototype) mPrototype.clone();
-        newPrototype.setType("2");
-
-        Log.d("TAG",mPrototype.toString());
-        Log.d("TAG",newPrototype.toString());
-
+        });
     }
 
-    public void onClick(View v){
-        Log.e("TAG","click");
-    }
+
 }

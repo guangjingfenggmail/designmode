@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">DesignDemo</string>
+    <string name="app_name">Android设计模式</string>
+    <string name="app_single">单例模式</string>
 </resources>
