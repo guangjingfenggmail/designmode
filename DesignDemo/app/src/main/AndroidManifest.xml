@@ -25,6 +25,9 @@
         <activity android:name=".builder.BuilderActivity"
             android:description="@string/app_builder"
             />
+        <activity android:name=".observer.ObserverActivity"
+            android:description="@string/app_observer"
+            />
         <activity android:name=".ui.PrintActivity"
             android:description="@string/app_name"
             />

@@ -1,40 +1,58 @@
 package com.open.design.observer;
 
+import java.util.Observable;
+
 /**
  * ****************************************************************************************************************************************************************************
  *
  * @author :guangjing.feng
- * @createTime: 2018/8/31.
+ * @createTime: 2018/9/4.
  * @version:1.1.0
  * @modifyTime:
  * @modifyAuthor:
  * @description: *****************************************************************************************************************************************************************************
  **/
-public class Weather {
-    private String description;
+public class Weather extends Observable {
+    private String date;
+    private String typeName;
+    private int type;
 
-
-    public Weather(Builder builder){
-        this.description = builder.description;
+    public String getDate() {
+        return date;
     }
 
-    public static class Builder{
-        private String description;
+    public void setDate(String date) {
+        this.date = date;
+        setChanged();
+        notifyObservers();
+    }
 
-        public Builder description(String description){
-            this.description = description;
-            return this;
-        }
+    public String getTypeName() {
+        return typeName;
+    }
 
-        public Weather create(){
-            return  new Weather(this);
-        }
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+        setChanged();
+        notifyObservers();
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+        setChanged();
+        notifyObservers();
     }
 
     @Override
     public String toString() {
-        return "{" +
-                "description:" + description+
+        return "Weather={" +
+                "date:" +date+","+
+                "typeName:" +typeName+","+
+                 "type:"+type+","+
                 "}";
     }
 }
