@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.open.design.R;
+import com.open.design.builder.BuilderActivity;
+import com.open.design.ui.ActionBarActivity;
 import com.open.design.ui.PrintActivity;
 import com.open.design.ui.WebViewActivity;
 
@@ -24,7 +26,7 @@ import com.open.design.ui.WebViewActivity;
  * @modifyAuthor:
  * @description: *****************************************************************************************************************************************************************************
  **/
-public class SingletonActivity extends AppCompatActivity {
+public class SingletonActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,21 +35,31 @@ public class SingletonActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_single, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_single, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.web_menu:
+//                WebViewActivity.startWebViewActivity(this,"https://blog.csdn.net/JoeLeeDreamer/article/details/71717379");
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.web_menu:
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.imgWeb:
                 WebViewActivity.startWebViewActivity(this,"https://blog.csdn.net/JoeLeeDreamer/article/details/71717379");
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+                break;
         }
     }
 
