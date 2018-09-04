@@ -87,4 +87,9 @@ public class ObserverActivity extends ActionBarActivity {
         super.onDestroy();
         weather.deleteObserver(weatherObserver);
     }
+
+    @Override
+    public void onChanged(int themeType) {
+        super.onChanged(themeType);
+    }
 }

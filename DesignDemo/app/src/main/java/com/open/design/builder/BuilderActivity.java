@@ -91,4 +91,9 @@ public class BuilderActivity extends ActionBarActivity {
     public void toPrint(String title,String content){
         PrintActivity.startPrintActivity(this,title,content);
     }
+
+    @Override
+    public void onChanged(int themeType) {
+        super.onChanged(themeType);
+    }
 }

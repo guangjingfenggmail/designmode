@@ -26,6 +26,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.open.design.R;
+import com.open.design.observer.theme.ThemeManager;
+import com.open.design.utils.SharedPreferencesHelper;
 
 
 /**
@@ -40,7 +42,7 @@ import com.open.design.R;
  * @description:
  ***************************************************************************************************************************************************************************** 
  */
-public class WebViewActivity extends Activity {
+public class WebViewActivity extends ActionBarActivity {
 	public static final String TAG = WebViewActivity.class.getSimpleName();
 	public WebView webview;
 	public String url = "";
@@ -57,7 +59,7 @@ public class WebViewActivity extends Activity {
 		setContentView(R.layout.activity_app_web);
 		findView();
 		initValue();
-
+		actionBar.hide();
 	}
 
 	/*

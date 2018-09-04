@@ -31,7 +31,7 @@ import java.io.IOException;
  * @modifyAuthor:
  * @description: *****************************************************************************************************************************************************************************
  **/
-public class PrintActivity extends AppCompatActivity {
+public class PrintActivity extends ActionBarActivity {
     TextView title;
     TextView content;
 
@@ -50,6 +50,8 @@ public class PrintActivity extends AppCompatActivity {
         if (getIntent().getStringExtra("content")!=null){
             content.setText(getIntent().getStringExtra("content"));
         }
+
+        actionBar.hide();
     }
 
     public static void startPrintActivity(Context context,String title,String content){

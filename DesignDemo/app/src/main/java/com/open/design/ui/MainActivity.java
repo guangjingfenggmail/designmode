@@ -3,18 +3,19 @@ package com.open.design.ui;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.open.design.R;
+import com.open.design.observer.theme.ThemeManager;
+import com.open.design.utils.SharedPreferencesHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ActionBarActivity {
     ClassListAdapter mClassListAdapter;
     List<ClassBean> list = new ArrayList<>();
     ListView listView;
@@ -30,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
             list.clear();
             ClassBean allBean;
             for (ActivityInfo info : activities) {
-                if (!MainActivity.class.getName().equals(info.name)&&!PrintActivity.class.getName().equals(info.name)
-                        &&!WebViewActivity.class.getName().equals(info.name)
+                if (!MainActivity.class.getName().equals(info.name)
                         &&!PrintActivity.class.getName().equals(info.name)
+                        &&!WebViewActivity.class.getName().equals(info.name)
                         && info.name.contains(getPackageName())) {
                     allBean = new ClassBean(info.name, getResources().getString(info.descriptionRes));
                     list.add(allBean);
@@ -57,5 +58,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.imgWeb:
+                if (SharedPreferencesHelper.getInstance().getInt("themeType",0)==0){
+                    SharedPreferencesHelper.getInstance().put("themeType",1);
+                }else {
+                    SharedPreferencesHelper.getInstance().put("themeType",0);
+                }
+                ThemeManager.getInstance().notifyObserver(SharedPreferencesHelper.getInstance().getInt("themeType",0));
+                break;
+        }
+    }
 }
