@@ -44,7 +44,7 @@ public class WebViewActivity extends Activity {
 	public static final String TAG = WebViewActivity.class.getSimpleName();
 	public WebView webview;
 	public String url = "";
-
+	private static final String APP_CACAHE_DIRNAME = "/webcache";
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -88,6 +88,24 @@ public class WebViewActivity extends Activity {
 		webSettings.setUseWideViewPort(true);
 		webSettings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
 		webSettings.setLoadWithOverviewMode(true);
+
+		webSettings.setRenderPriority(WebSettings.RenderPriority.HIGH);
+		webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);  //设置 缓存模式
+		// 开启 DOM storage API 功能
+		webSettings.setDomStorageEnabled(true);
+		//开启 database storage API 功能
+		webSettings.setDatabaseEnabled(true);
+		String cacheDirPath = getFilesDir().getAbsolutePath()+ APP_CACAHE_DIRNAME;
+		//      String cacheDirPath = getCacheDir().getAbsolutePath()+Constant.APP_DB_DIRNAME;
+		Log.i(TAG, "cacheDirPath="+cacheDirPath);
+		//设置数据库缓存路径
+		webSettings.setDatabasePath(cacheDirPath);
+		//设置  Application Caches 缓存目录
+		webSettings.setAppCachePath(cacheDirPath);
+		//开启 Application Caches 功能
+		webSettings.setAppCacheEnabled(true);
+
+
 		if (getIntent().getStringExtra("URL") != null) {
 			url = getIntent().getStringExtra("URL");
 		}
